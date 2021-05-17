@@ -1,0 +1,25 @@
+.sign__container {
+    max-width: 260px;
+    margin: 40px auto 0;
+}
+
+ @media screen and (min-width: 768px) {
+    .sign__container {
+         max-width: 358px;
+    }
+} 
+
+@media screen and (min-width: 1280px) {
+    .sign__container {
+        max-width: calc(100% - (2*461px));
+        
+        margin-top: 60px;
+      
+    }
+}
+
+/* @media screen and (min-width: 1280px) {
+    .sign__container {
+    
+    }
+} */

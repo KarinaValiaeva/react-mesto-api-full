@@ -1,0 +1,18 @@
+.header__nav-icon {
+  display: block;
+  position: relative;
+  transition-duration: 1s;
+  margin: 39px 27px 12px auto;
+  cursor: pointer;
+  transition: opacity 1s ease;
+}
+
+.header__nav-icon:hover {
+  opacity: 0.6;
+}
+
+@media screen and (min-width: 1024px) {
+  .header__nav-icon {
+    display: none;
+  }
+}

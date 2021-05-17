@@ -1,0 +1,12 @@
+.form_sign {
+    width: 100%;
+    gap: 30px;
+}
+
+
+@media screen and (min-width: 1024px) {
+    .form_sign {
+        gap: 23px;
+      
+    }
+}

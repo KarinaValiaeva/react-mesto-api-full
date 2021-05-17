@@ -1,0 +1,14 @@
+.header__open-menu {
+  display: grid;
+  gap: 18px;
+  justify-items: center;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+@media screen and (min-width: 1024px) {
+  .header__open-menu {
+    display: none;
+  }
+}

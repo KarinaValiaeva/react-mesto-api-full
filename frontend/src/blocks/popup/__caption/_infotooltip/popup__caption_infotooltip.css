@@ -1,0 +1,14 @@
+.popup__caption_infotooltip {
+    margin: 0;
+    color: #000;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: calc(29.05/24);
+    text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+    .popup__caption_infotooltip {
+        font-size: 20px;
+    }
+}

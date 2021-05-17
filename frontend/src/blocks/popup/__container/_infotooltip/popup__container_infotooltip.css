@@ -1,0 +1,15 @@
+.popup__container_infotooltip {
+    background-color: #fff;
+    width: 240px;
+    color: #000;
+    border-radius: 10px 10px 10px 10px;
+    position: relative;
+    margin-top: 130px;
+}
+
+@media screen and (min-width: 768px) {
+    .popup__container_infotooltip {
+        width: 430px;
+        margin-top: 196px;
+    }
+}

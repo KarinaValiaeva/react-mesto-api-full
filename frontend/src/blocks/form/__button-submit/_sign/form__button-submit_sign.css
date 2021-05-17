@@ -1,0 +1,19 @@
+.form__button-submit_sign {
+    background-color: #fff;
+    color: #000;
+    margin-top: 122px;
+    width: 100%;
+    font-size: 16px;
+}
+
+.form__button-submit_sign:hover {
+    opacity: .85;
+}
+
+@media screen and (min-width: 1024px) {
+    .form__button-submit_sign {
+        margin-top: 174px;
+        font-size: 18px;
+      
+    }
+}

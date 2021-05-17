@@ -1,0 +1,16 @@
+.form {
+    width: calc(100% - (2*22px));
+    margin: 0 auto;
+    /* display: flex;
+    flex-direction: column; */
+    padding-bottom: 25px;
+    display: grid;
+    gap: 30px;
+}
+
+@media screen and (min-width: 768px) {
+    .form {
+        width: calc(100% - (2*36px));
+        padding-bottom: 35px;
+    }
+}
