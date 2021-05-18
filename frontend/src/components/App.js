@@ -41,9 +41,9 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const history = useHistory();
 
-  useEffect(() => {
-    tokenCheck();
-  }, []);
+   useEffect(() => {
+     tokenCheck();
+   }, []);
 
   useEffect(() => {
     if (loggedIn) {
@@ -51,9 +51,9 @@ function App() {
     }
   }, [loggedIn]);
 
-  const handleRegister = ({ password, email }) => {
+  const handleRegister = ({ email, password }) => {
     return auth
-      .register({ password, email })
+      .register({ email, password })
       .then((res) => {
         setIsSignUp(true);
         history.push("/sign-in");
@@ -67,9 +67,9 @@ function App() {
       });
   };
 
-  const handleLogin = ({ password, email }) => {
+  const handleLogin = ({ email, password }) => {
     return auth
-      .authorize(password, email)
+      .authorize(email, password)
       .then((res) => {
         if (res.token) {
           setLoggedIn(true);
@@ -91,7 +91,7 @@ function App() {
       let jwt = localStorage.getItem("jwt");
       auth
         .getContent(jwt)
-        .then(({ data }) => {
+        .then((data) => {
           if (data.email) {
             setLoggedIn(true);
             setEmail(data.email);
@@ -206,7 +206,8 @@ function App() {
 
   // функция для постановки лайка
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
       .changeLikeCardStatus(card._id, !isLiked)

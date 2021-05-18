@@ -22,13 +22,14 @@ module.exports.login = (req, res, next) => {
         { expiresIn: '7d' },
       );
       // сохранение токена в cookie
-      res
-        .cookie('userToken', token, {
-          maxAge: 3600000,
-          httpOnly: true,
-          sameSite: true,
-        })
-        .send({ _id: user._id });
+      // res
+      //   .cookie('userToken', token, {
+      //     maxAge: 3600000,
+      //     httpOnly: true,
+      //     sameSite: true,
+      //   })
+      //   .send({ _id: user._id });
+      res.status(200).send({token})
     })
     .catch(() => {
       throw new UnauthorizedError('Неправильные почта или пароль');

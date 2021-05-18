@@ -77,7 +77,7 @@ class Api {
   }
 
    changeLikeCardStatus(id, isLiked){
-    return fetch(`${this.baseUrl}/cards/likes/${id}`, {
+    return fetch(`${this.baseUrl}/cards/${id}/likes`, {
       method: (isLiked) ? "PUT" : "DELETE",
       headers: this.headers,
     }).then(onError);
@@ -86,11 +86,13 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-20",
+  baseUrl: "http://localhost:3005",
   headers: {
-    authorization: "3b3ba091-9f36-415d-9c11-8ad47d6b1eca",
+    'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
     "Content-Type": "application/json",
   },
 });
+
+
 
 export default api;
