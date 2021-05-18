@@ -86,7 +86,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: "http://localhost:3005",
+  baseUrl: "http://api.mesto.nomoredomains.rocks",
   headers: {
     'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
     "Content-Type": "application/json",

@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:3005";
+export const BASE_URL = "http://api.mesto.nomoredomains.rocks";
 
 const checkResponse = (res) =>
   res.ok ? res.json() : Promise.reject(res);
