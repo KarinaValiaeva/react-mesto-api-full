@@ -42,10 +42,10 @@ function App() {
   const history = useHistory();
 
       useEffect(() => {
-        tokenCheck(history);
-      }, [history]);
+        tokenCheck();
+      }, []);
 
-  const tokenCheck = (history) => {
+  const tokenCheck = () => {
       if (localStorage.getItem("jwt")) {
       let jwt = localStorage.getItem("jwt");
       auth
@@ -54,7 +54,6 @@ function App() {
           if (data.email) {
             setLoggedIn(true);
             setEmail(data.email);
-            history.push("/");
           }
         })
         .catch((res) => {
