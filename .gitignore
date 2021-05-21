@@ -3,11 +3,10 @@ logs
 *.log
 npm-debug.log*
 
-# Dependency directory
-node_modules
+# dependencies
+/node_modules
 /.pnp
 .pnp.js
-.idea/
 
 # Optional npm cache directory
 .npm
@@ -15,8 +14,7 @@ node_modules
 # Optional REPL history
 .DS_Store
 .idea
-.env
-*.log
+.vscode
 
 # testing
 /coverage
