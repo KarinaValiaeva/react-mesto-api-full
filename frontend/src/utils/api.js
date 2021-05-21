@@ -12,21 +12,30 @@ class Api {
   }
 
   getUserInfo() {
-    return fetch(`${this.baseUrl}/users/me`, { headers: this.headers }).then(
-      onError
-    );
+    return fetch(`${this.baseUrl}/users/me`, {
+      headers: {
+        ...this.headers,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    }).then(onError);
   }
 
   getInitialCards() {
-    return fetch(`${this.baseUrl}/cards`, { headers: this.headers }).then(
-      onError
-    );
+    return fetch(`${this.baseUrl}/cards`, {
+      headers: {
+        ...this.headers,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    }).then(onError);
   }
 
   postCard(data) {
     return fetch(`${this.baseUrl}/cards`, {
       method: "POST",
-      headers: this.headers,
+      headers: {
+        ...this.headers,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
       body: JSON.stringify({
         name: data.name,
         link: data.link,
@@ -37,7 +46,10 @@ class Api {
   setUserInfo({ name, about }) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: "PATCH",
-      headers: this.headers,
+      headers: {
+        ...this.headers,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
       body: JSON.stringify({
         name: name,
         about: about,
@@ -48,51 +60,62 @@ class Api {
   deleteCard(id) {
     return fetch(`${this.baseUrl}/cards/${id}`, {
       method: "DELETE",
-      headers: this.headers,
+      headers: {
+        ...this.headers,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
     }).then(onError);
   }
 
   addLike(id) {
     return fetch(`${this.baseUrl}/cards/likes/${id}`, {
       method: "PUT",
-      headers: this.headers,
+      headers: {
+        ...this.headers,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
     }).then(onError);
   }
 
   deleteLike(id) {
     return fetch(`${this.baseUrl}/cards/likes/${id}`, {
       method: "DELETE",
-      headers: this.headers,
+      headers: {
+        ...this.headers,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
     }).then(onError);
   }
 
   setUserAvatar(link) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      headers: this.headers,
+      headers: {
+        ...this.headers,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
       body: JSON.stringify({
         avatar: link,
       }),
     }).then(onError);
   }
 
-   changeLikeCardStatus(id, isLiked){
+  changeLikeCardStatus(id, isLiked) {
     return fetch(`${this.baseUrl}/cards/${id}/likes`, {
-      method: (isLiked) ? "PUT" : "DELETE",
-      headers: this.headers,
+      method: isLiked ? "PUT" : "DELETE",
+      headers: {
+        ...this.headers,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
     }).then(onError);
   }
-  
 }
 
 const api = new Api({
-  baseUrl: "http://api.mesto.nomoredomains.rocks",
+  baseUrl: "https://api.mesto.nomoredomains.rocks",
   headers: {
-    'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
     "Content-Type": "application/json",
   },
 });
-
-
 
 export default api;

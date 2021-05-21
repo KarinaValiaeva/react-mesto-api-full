@@ -41,15 +41,29 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const history = useHistory();
 
-   useEffect(() => {
-     tokenCheck();
-   }, []);
+      useEffect(() => {
+        tokenCheck(history);
+      }, [history]);
 
-  useEffect(() => {
-    if (loggedIn) {
-      history.push("/");
-    }
-  }, [loggedIn]);
+  const tokenCheck = (history) => {
+      if (localStorage.getItem("jwt")) {
+      let jwt = localStorage.getItem("jwt");
+      auth
+        .getContent(jwt)
+        .then((data) => {
+          if (data.email) {
+            setLoggedIn(true);
+            setEmail(data.email);
+            history.push("/");
+          }
+        })
+        .catch((res) => {
+          if (res.status === 400)
+            console.log("Токен не передан или передан не в том формате");
+          if (res.status === 401) console.log("Переданный токен некорректен");
+        });
+  };
+}
 
   const handleRegister = ({ email, password }) => {
     return auth
@@ -86,24 +100,7 @@ function App() {
       });
   };
 
-  const tokenCheck = () => {
-    if (localStorage.getItem("jwt")) {
-      let jwt = localStorage.getItem("jwt");
-      auth
-        .getContent(jwt)
-        .then((data) => {
-          if (data.email) {
-            setLoggedIn(true);
-            setEmail(data.email);
-          }
-        })
-        .catch((res) => {
-          if (res.status === 400)
-            console.log("Токен не передан или передан не в том формате");
-          if (res.status === 401) console.log("Переданный токен некорректен");
-        });
-    }
-  };
+
 
   const handleLogOut = () => {
     setLoggedIn(false);
@@ -114,13 +111,15 @@ function App() {
 
   // загрузка информации о пользователе и карточек с сервера
   useEffect(() => {
+  if (loggedIn) {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([userData, initialCards]) => {
         setCurrentUser(userData);
         setCards(initialCards);
       })
-      .catch((err) => console.log(err));
-  }, []);
+      .catch((err) => console.log(err));}
+  }, [loggedIn]);
+
   // закрытие поппапов при нажатии на Esc
   useEffect(() => {
     function handleEsc(evt) {

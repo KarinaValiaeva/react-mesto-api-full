@@ -4,10 +4,10 @@ const User = require('../models/user');
 const NotFoundError = require('../errors/not-found-error');
 const BadRequestError = require('../errors/bad-request');
 const UnauthorizedError = require('../errors/unauthorized-error');
+const ConflictingRequest = require('../errors/conflicting-request');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-// const JWT_KEY = 'some-secret-key';
 const SOLT_ROUNDS = 10;
 
 module.exports.login = (req, res, next) => {
@@ -21,15 +21,7 @@ module.exports.login = (req, res, next) => {
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         { expiresIn: '7d' },
       );
-      // сохранение токена в cookie
-      // res
-      //   .cookie('userToken', token, {
-      //     maxAge: 3600000,
-      //     httpOnly: true,
-      //     sameSite: true,
-      //   })
-      //   .send({ _id: user._id });
-      res.status(200).send({token})
+      res.status(200).send({ token });
     })
     .catch(() => {
       throw new UnauthorizedError('Неправильные почта или пароль');
@@ -76,10 +68,7 @@ module.exports.createUser = (req, res, next) => {
     }))
     .catch((err) => {
       if (err.name === 'MongoError' && err.code === 11000) {
-        res
-          .status(409)
-          .send({ message: 'Пользователь с переданным email уже существует' });
-        return;
+        throw new ConflictingRequest('Пользователь с переданным email уже существует');
       }
       if (err.name === 'ValidationError') {
         throw new BadRequestError('Переданы некорректные данные');
