@@ -13,5 +13,7 @@ Frontend на ReactJS, вёрстка с использоваинием flexbox-
 ## Адрес проекта 
 
 [Ссылка на проект](https://mesto.nomoredomains.rocks/)
+
 ip-адрес сервера: 84.252.131.205
+
 Backend: https://api.mesto.nomoredomains.rocks/
