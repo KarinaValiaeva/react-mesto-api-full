@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
+const validator = require('validator');
 
 const {
   getUsers,
@@ -17,7 +18,7 @@ router.get(
   '/:userId',
   celebrate({
     params: Joi.object().keys({
-      userId: Joi.string().alphanum().length(24),
+      userId: Joi.string().hex().length(24),
     }),
   }),
   getUserId,
@@ -40,7 +41,18 @@ router.patch(
   '/me/avatar',
   celebrate({
     body: Joi.object().keys({
-      avatar: Joi.string().uri().required(),
+      avatar: Joi.string().custom((value, helpers) => {
+        if (
+          validator.isURL(value, {
+            protocols: ['http', 'https', 'ftp'],
+            require_tld: true,
+            require_protocol: true,
+          })
+        ) {
+          return value;
+        }
+        return helpers.message('Невалидная ссылка');
+      }),
     }),
   }),
   updateUserAvatar,

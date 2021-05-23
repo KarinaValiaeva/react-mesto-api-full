@@ -16,26 +16,22 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      minlength: 8,
       select: false,
     },
     name: {
       type: String,
-      required: true,
       minlength: 2,
       maxlength: 30,
       default: 'Жак-Ив Кусто',
     },
     about: {
       type: String,
-      required: true,
       minlength: 2,
       maxlength: 30,
       default: 'Исследователь',
     },
     avatar: {
       type: String,
-      required: true,
       validate: {
         validator(v) {
           return /^(https?):\/\/(www\.)?[0-9a-z+$&@'()#/%?=~_-|!:,.;]/.test(v);

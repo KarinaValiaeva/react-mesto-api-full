@@ -4,6 +4,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const validator = require('validator');
 const { celebrate, Joi, errors } = require('celebrate');
 const { createUser, login } = require('./controllers/users');
 const NotFoundError = require('./errors/not-found-error');
@@ -59,7 +60,18 @@ app.post(
       password: Joi.string().required().min(8),
       name: Joi.string().min(2).max(30),
       about: Joi.string().min(2).max(30),
-      avatar: Joi.string().uri(),
+      avatar: Joi.string().custom((value, helpers) => {
+        if (
+          validator.isURL(value, {
+            protocols: ['http', 'https', 'ftp'],
+            require_tld: true,
+            require_protocol: true,
+          })
+        ) {
+          return value;
+        }
+        return helpers.message('Невалидная ссылка');
+      }),
     }),
   }),
   createUser,
