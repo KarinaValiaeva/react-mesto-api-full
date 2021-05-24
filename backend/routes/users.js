@@ -41,7 +41,7 @@ router.patch(
   '/me/avatar',
   celebrate({
     body: Joi.object().keys({
-      avatar: Joi.string().custom((value, helpers) => {
+      avatar: Joi.string().required().custom((value, helpers) => {
         if (
           validator.isURL(value, {
             protocols: ['http', 'https', 'ftp'],

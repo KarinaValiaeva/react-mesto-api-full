@@ -45,9 +45,16 @@ function App() {
         tokenCheck();
       }, []);
 
+      useEffect(() => {
+        if (loggedIn) {
+          history.push("/");
+        }
+      }, [loggedIn, history]);
+
   const tokenCheck = () => {
       if (localStorage.getItem("jwt")) {
       let jwt = localStorage.getItem("jwt");
+      console.log(jwt);
       auth
         .getContent(jwt)
         .then((data) => {
@@ -110,6 +117,8 @@ function App() {
 
   // загрузка информации о пользователе и карточек с сервера
   useEffect(() => {
+    console.log(localStorage);
+    console.log(loggedIn);
   if (loggedIn) {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([userData, initialCards]) => {
